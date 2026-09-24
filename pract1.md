@@ -46,7 +46,7 @@ cp "$name" /usr/local/bin/
 
 localhost:~# chmod +x reg
 localhost:~# ./reg banner
-localhost:~# banner "РАБОТАЕТ!"
+localhost:~# banner "Работает!"
 ```
 ## Задание 6
 ```
