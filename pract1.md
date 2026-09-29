@@ -50,21 +50,68 @@ localhost:~# banner "Работает!"
 ```
 ## Задание 6
 ```
+localhost:~# nano check_comments
 
+# перебираем все файлы нужных расширений
+for file in *.c *.js *.py; do
+    # пропускаем, если файла нет
+    [ -f "$file" ] || continue
+
+    # берём первую строку
+    first=$(head -n 1 "$file")
+
+    # проверяем, начинается ли строка с комментария
+    case "$first" in
+        //*|/\**|\#*) echo "$file: комментарий есть" ;;
+        *) echo "$file: комментария нет" ;;
+    esac
+done
+
+localhost:~# chmod +x check_comments
+localhost:~# ./check_comments
 ```
 ## Задание 7
 ```
+localhost:~# nano find_dupes
 
+dir="${1:-.}"
+find "$dir" -type f -exec md5sum {} + | sort | uniq -w32 -D
+
+localhost:~# chmod +x find_dupes
+localhost:~# ./find_dupes .
 ```
 ## Задание 8
 ```
+localhost:~# nano make_tar
 
+dir="$1"
+ext="$2"
+archive="archive_${ext}.tar"
+find "$dir" -maxdepth 1 -name "*.$ext" -print0 | tar --null -cvf "$archive" --files-from=-
+echo "Создан архив $archive"
+
+localhost:~# chmod +x make_tar
+localhost:~# ./make_tar . c
 ```
 ## Задание 9
 ```
+localhost:~# nano space_to_tab
 
+in="$1"
+out="$2"
+sed 's/    /\t/g' "$in" > "$out"
+echo "Готово: $out"
+
+localhost:~# chmod +x space_to_tab
+localhost:~# ./space_to_tab hello.c hello_tab.c
 ```
 ## Задание 10
 ```
+localhost:~# nano find_empty
 
+dir="${1:-.}"
+find "$dir" -maxdepth 1 -type f -empty -name "*.txt"
+
+localhost:~# chmod +x find_empty
+localhost:~# ./find_empty .
 ```
