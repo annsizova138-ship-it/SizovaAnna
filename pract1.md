@@ -16,6 +16,7 @@ localhost:/etc# cd ~
 ```
 localhost:~# nano banner
 
+# рисуем рамку по длине текста
 text="$1"
 length=${#text}
 line=$(printf '%*s' "$length" ''| tr ' ' '-')
@@ -30,6 +31,7 @@ localhost:~# ./banner "Hello from RTU MIREA!"
 ```
 localhost:~# nano find_ids
 
+# ищем все идентификаторы и убираем повторы
 filename="$1"
 grep -oE '[a-zA-Z_][a-zA-Z0-9_]*' "$filename" | sort -u | xargs
 
@@ -40,6 +42,7 @@ localhost:~# ./find_ids hello.c
 ```
 localhost:~# nano reg
 
+# выдаём права и копируем команду в /usr/local/bin
 name="$1"
 chmod +x "$name"
 cp "$name" /usr/local/bin/
@@ -74,6 +77,7 @@ localhost:~# ./check_comments
 ```
 localhost:~# nano find_dupes
 
+# считаем md5 каждого файла и ищем совпадающие хэши
 dir="${1:-.}"
 find "$dir" -type f -exec md5sum {} + | sort | uniq -w32 -D
 
@@ -84,6 +88,7 @@ localhost:~# ./find_dupes .
 ```
 localhost:~# nano make_tar
 
+# находим файлы с расширением и упаковываем в tar
 dir="$1"
 ext="$2"
 archive="archive_${ext}.tar"
@@ -97,6 +102,7 @@ localhost:~# ./make_tar . c
 ```
 localhost:~# nano space_to_tab
 
+# меняем 4 пробела на таб
 in="$1"
 out="$2"
 sed 's/    /\t/g' "$in" > "$out"
@@ -109,6 +115,7 @@ localhost:~# ./space_to_tab hello.c hello_tab.c
 ```
 localhost:~# nano find_empty
 
+# ищем пустые .txt файлы в каталоге
 dir="${1:-.}"
 find "$dir" -maxdepth 1 -type f -empty -name "*.txt"
 
