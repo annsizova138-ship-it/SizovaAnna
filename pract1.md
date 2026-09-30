@@ -2,7 +2,6 @@
 ## Задание 1
 ```
 localhost:~# cd /etc
-localhost:/etc# ls
 
 localhost:/etc# cut -d: -f1 passwd | sort
 ```
