@@ -3,6 +3,8 @@ import os
 import re
 import shlex
 
+from vfs import empty_vfs
+
 COMMAND_PREFIX = "cmd_"
 ARGS_NONE = 0
 ARGS_ONE = 1
@@ -55,6 +57,10 @@ def check_args(name, args, low, high):
 class Shell:
     """Интерпретатор команд. Команда x выполняется методом cmd_x."""
 
+    def __init__(self, vfs=None):
+        """Запоминает VFS; без параметра берётся пустая."""
+        self.vfs = vfs if vfs is not None else empty_vfs()
+
     def execute(self, line):
         """Выполняет строку и возвращает текст результата."""
         words = parse_line(line)
@@ -84,3 +90,8 @@ class Shell:
         """Завершает работу эмулятора."""
         check_args("exit", args, ARGS_NONE, ARGS_NONE)
         raise ShellExit()
+
+    def cmd_vfs_info(self, args):
+        """Служебная команда vfs-info: имя VFS и SHA-256 её данных."""
+        check_args("vfs-info", args, ARGS_NONE, ARGS_NONE)
+        return f"VFS: {self.vfs.name}\nSHA-256: {self.vfs.digest}"

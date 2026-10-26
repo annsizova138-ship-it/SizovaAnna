@@ -4,19 +4,32 @@ import tkinter as tk
 from config import parse_args
 from gui import App
 from shell import Shell
+from vfs import VfsError, empty_vfs, load_vfs
 
-DEFAULT_VFS_NAME = "default"
 SCRIPT_DELAY_MS = 100
 
 
+def open_vfs(path):
+    """Загружает VFS; возвращает (vfs, текст ошибки или None)."""
+    if path is None:
+        return empty_vfs(), None
+    try:
+        return load_vfs(path), None
+    except VfsError as err:
+        return empty_vfs(), str(err)
+
+
 def main():
-    """Читает параметры, создаёт окно и запускает стартовый скрипт."""
+    """Читает параметры, грузит VFS, создаёт окно, запускает скрипт."""
     args = parse_args()
     print(f"Параметры: vfs={args.vfs}, script={args.script}")
+    vfs, error = open_vfs(args.vfs)
     root = tk.Tk()
-    app = App(root, Shell(), DEFAULT_VFS_NAME)
+    app = App(root, Shell(vfs), vfs.name)
     app.show_params(args)
-    if args.script:
+    if error:
+        app.print_line(f"Ошибка загрузки VFS: {error}")
+    elif args.script:
         root.after(SCRIPT_DELAY_MS, app.run_script, args.script)
     root.mainloop()
 
