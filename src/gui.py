@@ -1,6 +1,7 @@
 """Графический интерфейс эмулятора (tkinter)."""
 import tkinter as tk
 
+from script import ScriptError, read_script
 from shell import ShellError, ShellExit
 
 PROMPT = "$"
@@ -56,3 +57,21 @@ class App:
         if result:
             self.print_line(result)
         return True
+
+    def show_params(self, args):
+        """Выводит параметры запуска (отладочный вывод)."""
+        self.print_line("Параметры запуска:")
+        self.print_line(f"  vfs    = {args.vfs}")
+        self.print_line(f"  script = {args.script}")
+
+    def run_script(self, path):
+        """Выполняет стартовый скрипт и останавливается на ошибке."""
+        try:
+            commands = read_script(path)
+        except ScriptError as err:
+            self.print_line(f"Ошибка скрипта: {err}")
+            return
+        for number, line in commands:
+            if not self.submit(line):
+                self.print_line(f"Скрипт остановлен на строке {number}")
+                return
