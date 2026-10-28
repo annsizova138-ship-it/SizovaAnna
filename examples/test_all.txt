@@ -1,0 +1,8 @@
+ls
+ls -l /tmp
+ls "my files" $HOME
+cd
+cd docs
+cd $HOME
+vfs-info
+cd a b

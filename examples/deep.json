@@ -1,0 +1,43 @@
+{
+  "name": "deep",
+  "root": {
+    "type": "dir",
+    "children": {
+      "top.txt": {
+        "type": "file",
+        "encoding": "text",
+        "content": "top level file\n"
+      },
+      "level1": {
+        "type": "dir",
+        "children": {
+          "one.txt": {
+            "type": "file",
+            "encoding": "text",
+            "content": "level 1 file\n"
+          },
+          "level2": {
+            "type": "dir",
+            "children": {
+              "two.txt": {
+                "type": "file",
+                "encoding": "text",
+                "content": "level 2 file\n"
+              },
+              "level3": {
+                "type": "dir",
+                "children": {
+                  "three.txt": {
+                    "type": "file",
+                    "encoding": "text",
+                    "content": "level 3 file\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

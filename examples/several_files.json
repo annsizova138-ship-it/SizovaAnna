@@ -1,0 +1,33 @@
+{
+  "name": "several",
+  "root": {
+    "type": "dir",
+    "children": {
+      "hello.txt": {
+        "type": "file",
+        "encoding": "text",
+        "content": "Hello, world!\n"
+      },
+      "notes.txt": {
+        "type": "file",
+        "encoding": "text",
+        "content": "first line\nsecond line\n"
+      },
+      "data.bin": {
+        "type": "file",
+        "encoding": "base64",
+        "content": "AAEC/w=="
+      },
+      "docs": {
+        "type": "dir",
+        "children": {
+          "guide.txt": {
+            "type": "file",
+            "encoding": "text",
+            "content": "How to use the emulator\n"
+          }
+        }
+      }
+    }
+  }
+}

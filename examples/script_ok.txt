@@ -1,0 +1,5 @@
+ls
+ls -l /tmp
+cd
+cd docs
+ls "my files" $HOME
